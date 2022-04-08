@@ -1,0 +1,40 @@
+openapi: "3.0.0"
+
+info:
+  title: Getting a list of ASCII characters
+  version: "1.0"
+servers:
+  - url: http://localhost:9090/v1.0
+components:
+  schemas:
+    ApplicationRequest:
+      type: array
+      items:
+        type: string
+        example: A
+    ApplicationResponse:
+      type: string
+      example: 650
+
+paths:
+  /geeting-ascii-from-alphabets:
+    post:
+      summary: Getting a list of ASCII characters
+      description: Getting a list of ASCII characters (any ASCII alphabet character), exemple request body ["a", "B","z", "h"].
+      operationId: ascii_data.post_greeting_ascii
+      requestBody:
+        description: Creation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationRequest'
+        required: true
+      responses:
+        200:
+          description: greeting response on each ASCII alphabet character below H or h, the corresponding integer should be the character ASCII code multiplied by 10, otherwise it should be 0
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationResponse'
